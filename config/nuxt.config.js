@@ -1,7 +1,10 @@
+const { resolve } = require('path');
+
 module.exports = {
   /*
   ** Headers of the page
   */
+  srcDir: "src/",
   head: {
     title: 'morning-routine-manager',
     meta: [
@@ -30,15 +33,20 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
+    // extend (config, { isDev, isClient }) {
+    //   if (isDev && isClient) {
+    //     config.module.rules.push({
+    //       enforce: 'pre',
+    //       test: /\.(js|vue)$/,
+    //       loader: 'eslint-loader',
+    //       exclude: /(node_modules)/
+    //     })
+    //   }
+    // }
+    extend(config, ctx) {
+      config.resolve.alias = Object.assign({}, config.resolve.alias, {
+        'config': resolve(__dirname),
+      });
     }
   }
-}
+};
